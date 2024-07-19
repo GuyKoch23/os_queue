@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "stddef.h": "c",
+        "threads.h": "c",
+        "stdio.h": "c",
+        "queue.h": "c"
+    }
+}
