@@ -149,7 +149,6 @@ void test_visited_count() {
     for (int i = 0; i < num_items; ++i) {
         enqueue((void *)(long)i);
     }
-    printf("aaa % ld aaa\n", size());
     for (int i = 0; i < num_items; ++i) {
         dequeue();
     }
@@ -203,7 +202,6 @@ void stress_test() {
     for (int i = 0; i < num_threads; ++i) {
         thrd_join(threads[i], NULL);
     }
-    printf("eeeeee\n");
 
     print_result("Stress Test - Total enqueues", enqueue_counter == (num_threads / 2) * num_operations);
     print_result("Stress Test - Total dequeues", dequeue_counter == (num_threads / 2) * num_operations);
@@ -344,7 +342,6 @@ void test_thread_wakeup_order() {
         long id = (long)arg;
         dequeue();
         wakeup_order[atomic_fetch_add(&wakeup_index, 1)] = id;
-        printf("%d", id);
         return 0;
     }
 
@@ -367,7 +364,6 @@ void test_thread_wakeup_order() {
     bool correct_order = true;
     for (int i = 0; i < num_threads; ++i) {
         if (wakeup_order[i] != i) {
-            // printf("%d %d\n", wakeup_order[i], i);
             correct_order = false;
             break;
         }

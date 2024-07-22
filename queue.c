@@ -125,7 +125,6 @@ void* dequeue(void){
     }
     newNode->id = -1;
 
-    //if(queue.size == 0 || ((queue.waiting >= queue.paired) && queue.waiting > 0)){
     if(queue.size <= queue.paired){
         cnd_init(&newNode->cnd);
         newNode->next = NULL;
@@ -212,13 +211,15 @@ void* dequeue(void){
             }
         }
     }
+    free(newNode);
+    free(node);
     mtx_unlock(&queue.mtx);
     return data;
 }
 
 bool tryDequeue(void** data){
     mtx_lock(&queue.mtx);
-    if(queue.size == 0 || ((queue.waiting >= queue.paired) && queue.waiting > 0)){
+    if(queue.size <= queue.paired){
         mtx_unlock(&queue.mtx);
         return false;
     }
@@ -243,10 +244,13 @@ bool tryDequeue(void** data){
     }
     else{
         prev->next = node->next;
+        if(node->next == NULL){ // item_last
+            queue.item_last = prev;
+        }
     }
     queue.size--;
     queue.visited++;
-    //free(node);
+    free(node);
     mtx_unlock(&queue.mtx);
     return true;
 }
@@ -261,5 +265,5 @@ size_t waiting(void){
 }
 
 size_t visited(void){
-return queue.visited;
+    return queue.visited;
 }
