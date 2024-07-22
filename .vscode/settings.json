@@ -4,6 +4,10 @@
         "stddef.h": "c",
         "threads.h": "c",
         "stdio.h": "c",
-        "queue.h": "c"
+        "queue.h": "c",
+        "iterator": "c",
+        "xmemory": "c",
+        "ranges": "c",
+        "atomic": "c"
     }
 }
