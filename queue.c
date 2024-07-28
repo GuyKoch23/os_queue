@@ -268,7 +268,7 @@ size_t size(void){
 }
 
 size_t waiting(void){
-    return queue.waiting;
+    return queue.waiting - queue.paired;
 }
 
 size_t visited(void){
